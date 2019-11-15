@@ -1,4 +1,4 @@
-ls<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -42,11 +42,13 @@ ls<!DOCTYPE html>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
+    <div id = "authstuff"></div>
     <div id="namestuff">
         <input type="text" id="myname" placeholder="Hi, my name is" />
         <button type="button" id="join">Click to join</button>
         <button type="button" id="leave">Click to leave</button>
         <button type="button" id="edit">Click to change your name</button>
+        <input type="text", id="mypost" placeholder="What do you want to post about it?"\>
         <button type="button" id="post"> Click to add a Post</button>
         <span class = "total"> ... </span>
         <button id = "toggle"> You have <span class= "yesno">...</span> likes this post</button>
@@ -54,6 +56,9 @@ ls<!DOCTYPE html>
     <p id="load">Firebase SDK Loading&hellip;</p>
     
     <script>
+      
+      
+
       $(document).ready(function(){
   var theDB = firebase.database();
   var provider = new firebase.auth.GoogleAuthProvider();
@@ -109,7 +114,7 @@ ls<!DOCTYPE html>
 
   //chris stuff
   $("#post").click(function() {
-    var postname = "We dont have trouble sleeping"; //TODO make this an actual HTML thing
+    var postname = $("#mypost").val();  //TODO make this an actual HTML thing
     if (!!postname) {
       theDB.ref().child("posts/").set({title: postname, votes: 0, lastmessage: postname}) //ASK if there is a way to do auto ID's
     }
