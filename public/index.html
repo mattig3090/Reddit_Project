@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ls<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,7 +13,12 @@
     <script defer src="/__/firebase/7.2.3/firebase-messaging.js"></script>
     <script defer src="/__/firebase/7.2.3/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script defer src="/__/firebase/init.js">
+    
+
+  
+    </script>
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -37,29 +42,130 @@
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
     </div>
+    <div id="namestuff">
+        <input type="text" id="myname" placeholder="Hi, my name is" />
+        <button type="button" id="join">Click to join</button>
+        <button type="button" id="leave">Click to leave</button>
+        <button type="button" id="edit">Click to change your name</button>
+        <button type="button" id="post"> Click to add a Post</button>
+        <span class = "total"> ... </span>
+        <button id = "toggle"> You have <span class= "yesno">...</span> likes this post</button>
+      </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
-
+    
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      $(document).ready(function(){
+  var theDB = firebase.database();
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  console.log(user);
+  $("#authstuff").html(`<h1>Welcome ${user.displayName}</h1><p><img src="${user.photoURL}"></p>`);
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+});
+  //This is a silly andy trick, ignore or not
+  var myid = "";
+  if(localStorage) {
+    if(!localStorage.getItem("sillyID")) {
+        myid = "id"+Math.floor(Math.random()*500000000);
+        localStorage.setItem("sillyID", myid);
+    } else {
+      myid = localStorage.getItem("sillyID");
+    }
+  }
+  //ANdy video Stuff
+  let totalRef = firebase.database().ref("total");
+  totalRef.on("value", function(ss) {
+    let data = ss.val();
+    $(".total").html(data);
 
-        try {
-          let app = firebase.app();
-          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
+  });
+  var myCurrentVote = false;
+
+  let myVoteRef = firebase.database().ref("votes").child(myid);
+  myvoteRef.on("value", function(ss) {
+    let data = ss.val();
+    myCurrentVote = data;
+    if (!!myCurrentVote) {  //what some people call a truthy checker
+      $(".yesno").html("HAVE");
+    } else {
+      $(".yesno").html("HAVE NOT");
+    };
+  });
+  
+  $("#toggle").on("click", function() { 
+      myvoteRef.set(!myCurrentVote);
+  })
+
+  //chris stuff
+  $("#post").click(function() {
+    var postname = "We dont have trouble sleeping"; //TODO make this an actual HTML thing
+    if (!!postname) {
+      theDB.ref().child("posts/").set({title: postname, votes: 0, lastmessage: postname}) //ASK if there is a way to do auto ID's
+    }
+  });
+  
+  
+  //here is the interesting stuff
+  $("#join").click(function(){ //CREATE
+    var name = $("#myname").val();
+    if (!!name){
+      theDB.ref().child("people/"+myid).set({name: name, online: true});
+    }
+  });
+  $("#leave").click(function(){ //DESTROY
+    theDB.ref("people/"+myid).remove();
+  });
+  $("#edit").click(function(){ //UPDATE
+    var name = $("#myname").val();
+    if (!!name){
+      theDB.ref("people").child(myid).update({name: name});
+    }
+  });
+  
+  theDB.ref("people").on("value", function(snap){
+    $("#people").empty();
+    var everyone = snap.val();
+    for(var id in everyone){
+      if (everyone.hasOwnProperty(id)){
+        let yourname = everyone[id].name || "anonymous";
+        $("#people").append(`<li>${yourname}</li>`);
+      }
+    }
+  });
+    });
+
+    
+      // document.addEventListener('DOMContentLoaded', function() {
+      //   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      //   // // The Firebase SDK is initialized and available here!
+      //   //
+      //   // firebase.auth().onAuthStateChanged(user => { });
+      //   //firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+      //   // firebase.messaging().requestPermission().then(() => { });
+      //   // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+      //   //
+      //   // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+      //   try {
+      //     let app = firebase.app();
+      //     let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+      //     document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+      //   } catch (e) {
+      //     console.error(e);
+      //     document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+      //   }
+      // });
     </script>
   </body>
 </html>
