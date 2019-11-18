@@ -1,0 +1,31 @@
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+
+<form method="post" action="index.html">
+<div class="box">
+<h1>Dashboard</h1>
+
+<input type="email" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+  
+<input type="password" name="email" value="email" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
+  
+<!--a [routerLink]="landing"-->
+    <div class="btn">
+        <button type="button" class="btn btn-block" (click)="signInWithGoogle()">
+            <i class="fa fa-google" aria-hidden="true"></i>
+            Login with Google
+        </button>   
+    </div>
+<!--/a--> <!-- End Btn -->
+
+<!-- tempory next page button-->
+
+<a [routerLink]="landing"><div id="btn2">Next Page</div></a> <!-- End Btn2 -->
+  
+</div> <!-- End Box -->
+  
+</form>
+
+<p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>
+  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
