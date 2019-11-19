@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  templateUrl: './login-page.component.html',
+  styleUrls: ['./login-page.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginPageComponent implements OnInit {
   user = null;
   constructor(private authService: AuthService, private router: Router) {
   }
