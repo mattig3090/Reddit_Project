@@ -41,7 +41,21 @@ export class LandingPageComponent implements OnInit {
     })
   }
   onSelectPost() {
-    
+    let totalRef = firebase.database().ref("total");
+      totalRef.on("value", function(ss){
+        let data = ss.val();
+        $(".total").html(data);
+      });
+      var myCurrentVote = false;
+      let myVoteRef = firebase.database().ref("votes").child(myid);
+      myVoteRef.on("value",function(ss){
+        let data = ss.val();
+        myCurrentVote = data;
+        if(!!myCurrentVote){
+          $(".yesno").html("HAVE");
+        }else{
+          $(".yesno").html("HAVE NOT");
+        };
+      });
   }
-
 }
