@@ -18,25 +18,32 @@ import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 @Injectable()
 export class AuthService {
+  //private user = null;
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
-
-constructor(private _firebaseAuth: AngularFireAuth, private router: Router) { 
-      this.user = _firebaseAuth.authState;
+  //private check = "This is bad";
   
-
+constructor(private _firebaseAuth: AngularFireAuth, private router: Router) { 
+    
+  this.user = this._firebaseAuth.authState;
   this.user.subscribe(
     (user) => {
       if (user) {
         this.userDetails = user;
         console.log(this.userDetails);
       }
+
       else {
         this.userDetails = null;
       }
     }
+
   );
+  
+  
 }
+
+
 //implement later maybe
 signInWithTwitter() {
   return this._firebaseAuth.auth.signInWithPopup(
@@ -49,14 +56,36 @@ signInWithFacebook() {
     new firebase.auth.FacebookAuthProvider()
   )
 }
+//old one
 signInWithGoogle() {
-    return this._firebaseAuth.auth.signInWithPopup(
+    //this.check = "this is good";  
+    return this._firebaseAuth.auth.signInWithRedirect(
       new firebase.auth.GoogleAuthProvider()
     )
   }
 
+signInWIthGoogle2() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    //var token = result.credential.accessToken;
+    // The signed-in user info.
+    this.user = result.user;
+    // ...
+  }).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+}
+
   isLoggedIn() {
-    if (this.userDetails == null ) {
+    if (this.user == null ) {
         return false;
       } else {
         return true;
@@ -67,7 +96,7 @@ signInWithGoogle() {
       .then((res) => this.router.navigate(['/']));
     }
   getUser() {
-    return this.user;
+    return this.userDetails;
   }
   }
 

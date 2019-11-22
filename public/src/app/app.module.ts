@@ -12,6 +12,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AuthService } from './services/auth.service';
+import { SubredditComponent } from './views/subreddit/subreddit.component';
 
 
 const config = {
@@ -28,7 +29,8 @@ const config = {
   declarations: [
     AppComponent,
     LoginPageComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SubredditComponent
   ],
   imports: [
     BrowserModule,

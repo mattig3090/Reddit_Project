@@ -8,6 +8,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginPageComponent implements OnInit {
   user = null;
+  work = "working";
   constructor(private authService: AuthService, private router: Router) {
   }
    signInWithTwitter() {
@@ -27,9 +28,13 @@ export class LoginPageComponent implements OnInit {
     signInWithGoogle() {
       this.authService.signInWithGoogle()
       .then((res) => {
-          this.router.navigate(['landing'])
-        })
-      .catch((err) => console.log(err));
+        this.router.navigate([''])
+      })
+    .catch((err) => console.log(err));
+      
+    }
+    skipToNextPage() {
+      this.router.navigate(['landing'])
     }
   ngOnInit() {
   }

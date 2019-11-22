@@ -1,17 +1,23 @@
-<p>Welcome 2 Bluedit, the backpage of the internet</p>
+<div *ngIf="user">
+<h3>Welcome 2 Bluedit, the backpage of the internet.</h3>
 <div id = "posting">
         <label>POST:
-            <input [(ngModel)] = "postname" id="mypost" placeholder="Whats on your mind?"/>
+            <input [(ngModel)] = "postname" placeholder="Whats on your mind?"/>
         </label>
         <button type = "button" id = "post" (click) = "createPost()">POST 2 BLUEDIT!</button>
 </div>
 <!-- lop = List of posts -->
-<div id = "lop"> 
-    <h1> Posts </h1>
-    <ul class = "LandingPageComponent">
-        <li *ngFor="let post of postlist" (click)="onSelectPost()">
-            {{post.postname}} <!--this is lukely to break... looks kinda sketchy-->
-        </li>
-    </ul>
+<div *ngIf = "postlist.length > 0" id = "lop"> 
+        <h1> Posts (you can click on them)</h1>
+        <ul class = "LandingPageComponent">
+            <li *ngFor="let post of postlist" (click)="onSelectPost(post)">
+                {{post[1].title}} <!--this is lukely to break... looks kinda sketchy-->
+            </li>
+        </ul>
+    </div>
+
+</div>
+<div *ngIf="!user">
+    <h1>You are not logged in, please go back to the homepage</h1>
 </div>
 
