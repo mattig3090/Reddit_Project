@@ -2,13 +2,14 @@
     
     <body>
     <div *ngIf="thePost"> 
-        <h2>{{thePost.title}}</h2>
-        <div *ngIf = "commentList.length > 0">
+        <h1>Lets Talk About: {{thePost.title}}</h1>
+        <div *ngIf = "commentList.length > 0" id = "loc">
             <h5>Comments:</h5>
-            <ul>
-                <li *ngFor = "let comment of commentList">
+            <ol>
+                <li *ngFor = "let listitem of commentList">
+                    {{listitem.comment}}
                 </li>
-            </ul>
+            </ol>
         </div>
         <div id = "comment">
                 <label>Comment:
@@ -16,10 +17,12 @@
                 </label>
                 <button type = "button" id = "comment" (click) = "addComment()">Leave a comment!</button>
         </div>
+        <div id = "like">
         <I>Like the post? Then consider smashing the like button! (Not currently implemented, waiting on Matt)</I>
         <button (click) = "onLike()">
             Like
         </button>
+        </div>
     </div>
     </body> 
 

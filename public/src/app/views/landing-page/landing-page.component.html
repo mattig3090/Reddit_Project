@@ -8,12 +8,12 @@
 </div>
 <!-- lop = List of posts -->
 <div *ngIf = "postlist.length > 0" id = "lop"> 
-        <h1> Posts (you can click on them)</h1>
-        <ul class = "LandingPageComponent">
+        <h1> Recent Posts </h1>
+        <ol class = "LandingPageComponent">
             <li *ngFor="let post of postlist" (click)="onSelectPost(post)">
                 {{post[1].title}} <!--this is lukely to break... looks kinda sketchy-->
             </li>
-        </ul>
+        </ol>
     </div>
 
 </div>

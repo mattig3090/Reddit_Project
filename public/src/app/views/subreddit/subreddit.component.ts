@@ -40,17 +40,20 @@ export class SubredditComponent implements OnInit {
   addComment() {
     console.log("wow adding a comment, much wow, so cool")
     this.theDB.ref().child("posts/"+this.postId+"/comments").push({"comment" : this.newCommentText})
+    this.commentList.push({"comment" : this.newCommentText}); 
+    this.newCommentText = "";
   }
 
   extractComments() {
     let com;
-    let commentList = [];
+    let lcommentList = [];
     let coms = this.comments;
     for (com in coms) {
-      commentList.push(coms[com]);
+      lcommentList.push(coms[com]);
+      console.log(coms[com]);
       
     }
-    this.commentList = commentList //angular is real wacky with aliasing "this" so I have trust issues now 
+    this.commentList = lcommentList //angular is real wacky with aliasing "this" so I have trust issues now 
     
     
   }

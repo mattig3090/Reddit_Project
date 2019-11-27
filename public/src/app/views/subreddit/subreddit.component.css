@@ -1,0 +1,115 @@
+h1 {
+    text-align: center;
+    padding-top: 40px;
+    color: rgb(27, 7, 138);
+    /*font-family: 'Ubuntu', sans-serif;*/
+    font-weight: bold;
+    display:block;
+    font-size: 30px;
+  
+  }
+
+button {
+    /*align-self: center;*/
+    
+    border-radius: 5em;
+    color: #fff;
+    background: linear-gradient(to right, #9C27B0, #E040FB);
+    border: 0;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 13px;
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    }
+
+    button:hover {
+        opacity: 0.8;
+      }
+#loc {
+    background-color: rgb(154, 169, 240);
+    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 1.5em;   
+}
+
+#comment {
+    text-align: center;
+}
+
+h5 {
+    text-align: center;
+    padding-top: 40px;
+    color: rgb(27, 7, 138);
+    /*font-family: 'Ubuntu', sans-serif;*/
+    font-weight: bold;
+    font-size: 23px;
+  
+  }
+
+label {
+    text-align: center;
+    color: rgb(19, 12, 58);
+}
+
+ol {
+    counter-reset: li;
+    list-style: none;
+    *list-style: decimal;
+    font: 15px 'trebuchet MS', 'lucida sans';
+    padding: 0;
+    margin-bottom: 4em;
+
+}
+ol ol {
+    margin: 0 0 0 2em;
+}
+
+li {
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em 2em;
+    *padding: .4em;
+    margin: .5em 0;
+    background: #FFF;
+    color: #444;
+    text-decoration: none;
+    -moz-border-radius: .3em;
+    -webkit-border-radius: .3em;
+    border-radius: .3em;
+    
+
+}
+
+li:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -1.3em;
+    top: 50%;
+    margin-top: -1.3em;
+    background: #87ceeb;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    border: .3em solid #fff;
+    text-align: center;
+    font-weight: bold;
+    -moz-border-radius: 2em;
+    -webkit-border-radius: 2em;
+    border-radius: 2em;
+    color:#FFF;
+}
+
+li:hover {
+    background: #cbe7f8;
+    text-decoration:underline;
+
+}
+
+#like {
+    text-align: center;
+}
