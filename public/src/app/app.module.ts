@@ -6,12 +6,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './views/login-page/login-page.component';
 import { LandingPageComponent } from './views/landing-page/landing-page.component';
+import { SubredditComponent } from './views/subreddit/subreddit.component';
+
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+
+
+import { UserResolver } from './views/landing-page/user.resolver';
+
 
 
 const config = {
@@ -28,7 +36,8 @@ const config = {
   declarations: [
     AppComponent,
     LoginPageComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SubredditComponent
   ],
   imports: [
     BrowserModule,
@@ -36,9 +45,11 @@ const config = {
     AngularFireAuthModule,
     AppRoutingModule,
     FormsModule,
+    AngularFirestoreModule,
     AngularFireDatabaseModule
+
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService, UserResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
