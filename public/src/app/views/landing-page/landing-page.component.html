@@ -1,5 +1,10 @@
 <div *ngIf="user">
-<h3>Welcome 2 Bluedit, the backpage of the internet.</h3>
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+        <div class="container">
+            <a (click)="logout()" class="navbar-text navbar-right navbar-link">Logout</a>
+        </div>
+</nav>
+<h3>Hello {{user.name}}! Welcome 2 Bluedit, reddit for people who hate the color red</h3>
 <div id = "posting">
         <label>POST:
             <input [(ngModel)] = "postname" placeholder="Whats on your mind?"/>
@@ -17,7 +22,9 @@
     </div>
 
 </div>
-<div *ngIf="!user">
+<!--
+<div *ngIf="user">
     <h1>You are not logged in, please go back to the homepage</h1>
 </div>
+-->
 

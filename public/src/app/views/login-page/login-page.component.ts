@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login-page.component.html',
@@ -11,6 +12,14 @@ export class LoginPageComponent implements OnInit {
   work = "working";
   constructor(private authService: AuthService, private router: Router) {
   }
+
+  tryGoogleLogin(){
+    this.authService.doGoogleLogin()
+    .then(res => {
+      this.router.navigate(['/landing']);
+    })
+  }
+
    signInWithTwitter() {
       this.authService.signInWithTwitter()
       .then((res) => { 
@@ -26,12 +35,9 @@ export class LoginPageComponent implements OnInit {
       .catch((err) => console.log(err));
     }
     signInWithGoogle() {
-      this.authService.signInWithGoogle()
-      .then((res) => {
-        this.router.navigate([''])
-      })
-    .catch((err) => console.log(err));
-      
+      this.authService.signInWithGoogle2()
+      console.log("hello")
+      console.log(this.authService.getUser()) 
     }
     skipToNextPage() {
       this.router.navigate(['landing'])

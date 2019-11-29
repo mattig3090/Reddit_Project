@@ -2,7 +2,7 @@
     
     <body>
     <div *ngIf="thePost"> 
-        <h1>Lets Talk About: {{thePost.title}}</h1>
+        <h1>{{nameOfPoster}} Wants Talk About {{thePost.title}}</h1>
         <div *ngIf = "commentList.length > 0" id = "loc">
             <h5>Comments:</h5>
             <ol>

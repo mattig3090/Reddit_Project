@@ -14,6 +14,7 @@ export class SubredditComponent implements OnInit {
   comments = null;
   commentList = [];
   newCommentText = " ";
+  nameOfPoster = "Anon";
   constructor(private router: Router, private postinfoService: PostinfoService) { 
     
   }
@@ -25,6 +26,9 @@ export class SubredditComponent implements OnInit {
     this.postId = tuple[0];
     this.thePost = tuple[1];
     this.comments = this.thePost.comments;
+    if (this.thePost.poster) {
+      this.nameOfPoster = this.thePost.poster;
+    }
     this.extractComments();
     console.log(this.postId);
     console.log(this.thePost.title)
@@ -40,8 +44,12 @@ export class SubredditComponent implements OnInit {
   addComment() {
     console.log("wow adding a comment, much wow, so cool")
     this.theDB.ref().child("posts/"+this.postId+"/comments").push({"comment" : this.newCommentText})
-    this.commentList.push({"comment" : this.newCommentText}); 
+    this.commentList.push({"comment" : this.newCommentText});
+    if (this.commentList.length > 10) {
+      this.commentList.shift();
+    } 
     this.newCommentText = "";
+    
   }
 
   extractComments() {
@@ -49,7 +57,11 @@ export class SubredditComponent implements OnInit {
     let lcommentList = [];
     let coms = this.comments;
     for (com in coms) {
+      
       lcommentList.push(coms[com]);
+      if (lcommentList.length > 10) {
+        lcommentList.shift();
+      }
       console.log(coms[com]);
       
     }

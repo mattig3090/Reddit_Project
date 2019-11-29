@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../../services/auth.service';
 import { PostinfoService } from '../../services/postinfo.service'; 
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { FirebaseUserModel } from '../../services/user.model';
+
 
 
 
@@ -14,12 +17,13 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit {
   theDB = firebase.database();
   postname = null;
-  user = null;
+  user: FirebaseUserModel = new FirebaseUserModel();  
   userid = null;
   tester = "work";
   public postlist = [];
   listReady = false;
-  constructor(public authService: AuthService, public PostinfoService: PostinfoService, private router: Router) {
+  constructor(public authService: AuthService, public PostinfoService: PostinfoService, private router: Router, private route: ActivatedRoute,
+    public userService: UserService) {
     
     
    }
@@ -27,14 +31,21 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
     
     console.log("made it here 0 v2");
-    this.user = this.authService.getUser();
-    if (this.user) {
-    this.createUser(this.user);
-    console.log(this.user.uid);
+    this.route.data.subscribe(routeData => {
+      let data = routeData['data'];
+      if (data) {
+        this.user = data;
+        console.log("there is data");
+        //this.createForm(this.user.name);
+      }
+    })
     this.userid = this.user.uid;
+    if (this.userid) {
+      this.createUser(this.userid);
     }
     this.updateList();
     this.listReady = true;
+    console.log(this.user);
     
 
   }
@@ -44,7 +55,7 @@ export class LandingPageComponent implements OnInit {
     //postname = "Do You Think God Stays in Heaven Because He too Lives in Fear of What He's Created" //- Dino guy from Spy Kids 2; //TODO make this an actual HTML thing: leaving funny quote
     if (!!this.postname) {
       
-      this.theDB.ref().child('posts/').push({poster: this.userid, title: this.postname, votes: 0, comments : []}) //TODO, Push() might just return a reference. THen we would have to use set on that reference
+      this.theDB.ref().child('posts/').push({poster: this.user.name, title: this.postname, votes: 0, comments : []}) //TODO, Push() might just return a reference. THen we would have to use set on that reference
       console.log("request was updated");
       this.updateList();
     }
@@ -80,6 +91,15 @@ export class LandingPageComponent implements OnInit {
     else {
       this.theDB.ref('users/' + newUser.uid).set({email : newUser.email, name : newUser.displayName}) //can add whatever you want from the user JSON, I just picked these two things
     }
+  }
+
+  logout(){
+    this.authService.doLogout()
+    .then((res) => {
+      this.router.navigate(['']);
+    }, (error) => {
+      console.log("Logout error", error);
+    });
   }
 
 }
