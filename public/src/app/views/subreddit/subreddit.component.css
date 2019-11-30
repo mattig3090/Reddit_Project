@@ -1,33 +1,17 @@
-
-
-h3 {
+h1 {
     text-align: center;
     padding-top: 40px;
     color: rgb(27, 7, 138);
     /*font-family: 'Ubuntu', sans-serif;*/
     font-weight: bold;
-    font-size: 23px;
+    display:block;
+    font-size: 30px;
   
   }
-.container {
-    cursor: pointer;
-    
-    
-}
 
-
-#posting {
-    text-align: center;
-
-}
-
-label {
-    text-align: center;
-    color: rgb(19, 12, 58);
-}
 button {
     /*align-self: center;*/
-    cursor: pointer;
+    
     border-radius: 5em;
     color: #fff;
     background: linear-gradient(to right, #9C27B0, #E040FB);
@@ -43,22 +27,32 @@ button {
     button:hover {
         opacity: 0.8;
       }
-#lop {
+#loc {
     background-color: rgb(154, 169, 240);
     box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
     width: 400px;
     height: 500px;
     margin: 0 auto;
-    border-radius: 1.5em;
-
+    border-radius: 1.5em;   
 }
-h1 {
+
+#comment {
+    text-align: center;
+}
+
+h5 {
     text-align: center;
     padding-top: 40px;
     color: rgb(27, 7, 138);
     /*font-family: 'Ubuntu', sans-serif;*/
     font-weight: bold;
     font-size: 23px;
+  
+  }
+
+label {
+    text-align: center;
+    color: rgb(19, 12, 58);
 }
 
 ol {
@@ -86,7 +80,6 @@ li {
     -moz-border-radius: .3em;
     -webkit-border-radius: .3em;
     border-radius: .3em;
-    cursor: pointer;
     
 
 }
@@ -117,3 +110,6 @@ li:hover {
 
 }
 
+#like {
+    text-align: center;
+}
