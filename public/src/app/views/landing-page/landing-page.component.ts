@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from '@firebase/app';
+import 'firebase/database';
 import { AuthService } from '../../services/auth.service';
 import * as $ from "jquery";
 
