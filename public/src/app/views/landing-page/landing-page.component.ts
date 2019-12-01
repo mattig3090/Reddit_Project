@@ -16,7 +16,7 @@ import { FirebaseUserModel } from '../../services/user.model';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-  theDB = firebase.database();
+  theDB = firebase['database']();
   postname = null;
   user: FirebaseUserModel = new FirebaseUserModel();  
   userid = null;
@@ -71,36 +71,14 @@ export class LandingPageComponent implements OnInit {
         console.log(childdata);
         postlist2.push([childkey, childdata]);
       })
-<<<<<<< HEAD
-    })
-  }
-  onSelectPost() {
-    let totalRef = firebase.database().ref("total");
-      totalRef.on("value", function(ss){
-        let data = ss.val();
-        $(".total").html(data);
-      });
-      var myCurrentVote = false;
-      let myVoteRef = firebase.database().ref("votes").child(myid);
-      myVoteRef.on("value",function(ss){
-        let data = ss.val();
-        myCurrentVote = data;
-        if(!!myCurrentVote){
-          $(".yesno").html("HAVE");
-        }else{
-          $(".yesno").html("HAVE NOT");
-        };
-      });
-=======
     });
     this.postlist = postlist2;
     
 
   }
   onSelectPost(post) {
-    console.log(post);
-    this.PostinfoService.setInfo(post);
-    this.router.navigate(['subreddit']);
+    let voteCount = 0;
+    voteCount = this.theDB.ref('posts/votes')
   }
   createUser(newUser) {
     let dbuserId;
@@ -122,6 +100,5 @@ export class LandingPageComponent implements OnInit {
     }, (error) => {
       console.log("Logout error", error);
     });
->>>>>>> 2435e6d5c66b2fb3fed1bc42e19b2bd79546c51d
   }
 }
