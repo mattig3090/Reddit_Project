@@ -1,0 +1,28 @@
+{
+  "name": "reddit_project",
+  "version": "1.0.0",
+  "description": "The project is a clone of reddit like features, marketed towards people that dont like the color red and like the color blue\r Posts have a user attached to them, comments are anonamous.\r Displaye the last 10 posts and the last 10 comments.\r If something looks weird, at its from pre-existing data, that is just from data reformatting and you will (hopefully) not have the same problem. \r I likely just missed deleting it.",
+  "main": "index.js",
+  "dependencies": {
+    "firebase": "^7.5.0",
+    "install-peers": "^1.0.3",
+    "rxjs": "^6.5.3",
+    "tslib": "^1.10.0",
+    "zone": "^0.3.4",
+    "zone.js": "^0.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattig3090/Reddit_Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattig3090/Reddit_Project/issues"
+  },
+  "homepage": "https://github.com/mattig3090/Reddit_Project#readme"
+}

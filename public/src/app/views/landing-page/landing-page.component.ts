@@ -56,7 +56,7 @@ export class LandingPageComponent implements OnInit {
     //postname = "Do You Think God Stays in Heaven Because He too Lives in Fear of What He's Created" //- Dino guy from Spy Kids 2; //TODO make this an actual HTML thing: leaving funny quote
     if (!!this.postname) {
       
-      this.theDB.ref().child('posts/').push({poster: this.user.name, title: this.postname, votes: 0, comments : []}) //TODO, Push() might just return a reference. THen we would have to use set on that reference
+      this.theDB.ref().child('posts/').push({poster: this.user.name, title: this.postname, votes: 0, comments : [], voted: []}) //TODO, Push() might just return a reference. THen we would have to use set on that reference
       console.log("request was updated");
       this.updateList();
     }
@@ -76,9 +76,10 @@ export class LandingPageComponent implements OnInit {
     
 
   }
-  onSelectPost(post) {
-    let voteCount = 0;
-    voteCount = this.theDB.ref('posts/votes')
+  onSelectPost(post) { // handling upvote logic 
+    console.log(post);
+    this.PostinfoService.setInfo(post);
+    this.router.navigate(['subreddit']);
   }
   createUser(newUser) {
     let dbuserId;

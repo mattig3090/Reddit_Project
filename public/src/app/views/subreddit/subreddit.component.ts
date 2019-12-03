@@ -12,7 +12,9 @@ export class SubredditComponent implements OnInit {
   postId = null;
   thePost = null; 
   comments = null;
+  votes = null;
   commentList = [];
+  upvoted = [];
   newCommentText = " ";
   nameOfPoster = "Anon";
   constructor(private router: Router, private postinfoService: PostinfoService) { 
@@ -26,6 +28,7 @@ export class SubredditComponent implements OnInit {
     this.postId = tuple[0];
     this.thePost = tuple[1];
     this.comments = this.thePost.comments;
+    this.votes = this.thePost.votes;
     if (this.thePost.poster) {
       this.nameOfPoster = this.thePost.poster;
     }
@@ -33,12 +36,15 @@ export class SubredditComponent implements OnInit {
     console.log(this.postId);
     console.log(this.thePost.title)
     console.log(this.comments)
+    console.log(this.votes);
 
     
   }
 
   onLike() {
-    //code from Matt Grossman
+    // so we now have another sub-database in each post that tracks who has voted so far. That way we can make sure each person only upvotes once
+    console.log("Liking this post!");
+    
   }
 
   addComment() {
