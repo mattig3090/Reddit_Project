@@ -18,10 +18,12 @@
                 <button type = "button" id = "comment" (click) = "addComment()">Leave a comment!</button>
         </div>
         <div id = "like">
-        <I>Like the post? Then consider smashing the like button! (Not currently implemented, waiting on Matt)</I>
-        <button (click) = "onLike()">
-            Like
-        </button>
+            <div *ngIf = "user">
+                <I>Like the post? Then consider smashing the like button!</I>
+                <button (click) = "onLike(user.name)">
+                    Like
+                </button>
+            </div>
         </div>
     </div>
     </body> 
