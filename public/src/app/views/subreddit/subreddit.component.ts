@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostinfoService } from '../../services/postinfo.service'; 
 import * as firebase from 'firebase/app';
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-subreddit',
   templateUrl: './subreddit.component.html',
@@ -41,10 +42,18 @@ export class SubredditComponent implements OnInit {
     
   }
 
-  onLike() {
+  onLike(userName) { // takes in as a parameter the username of the user that liked the post
     // so we now have another sub-database in each post that tracks who has voted so far. That way we can make sure each person only upvotes once
-    console.log("Liking this post!");
-    
+    console.log(userName + " is liking this post!");
+    let userNameLoc = this.upvoted.indexOf(userName);
+    if(userNameLoc != -1){ // meaning that this user has already upvoted this post
+      this.votes = this.votes - 1; // removes the upvote from the post
+      this.upvoted.splice(userNameLoc, 1); // removes the user from the list of users that have upvoted the post
+    }
+    else{
+      this.votes = this.votes + 1;
+      this.upvoted.push(userName);
+    }
   }
 
   addComment() {
