@@ -1,18 +1,18 @@
-h1 {
+/*h1 {
     text-align: center;
     padding-top: 40px;
-    color: rgb(27, 7, 138);
+    color: rgb(27, 7, 138);*/
     /*font-family: 'Ubuntu', sans-serif;*/
-    font-weight: bold;
+ /*   font-weight: bold;
     display:block;
     font-size: 30px;
   
   }
 
-button {
+button {*/
     /*align-self: center;*/
     
-    border-radius: 5em;
+/*    border-radius: 5em;
     color: #fff;
     background: linear-gradient(to right, #9C27B0, #E040FB);
     border: 0;
@@ -43,9 +43,9 @@ button {
 h5 {
     text-align: center;
     padding-top: 40px;
-    color: rgb(27, 7, 138);
+    color: rgb(27, 7, 138);*/
     /*font-family: 'Ubuntu', sans-serif;*/
-    font-weight: bold;
+/*    font-weight: bold;
     font-size: 23px;
   
   }
@@ -112,4 +112,4 @@ li:hover {
 
 #like {
     text-align: center;
-}
+}*/
