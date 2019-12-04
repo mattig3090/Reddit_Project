@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from '@firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/database';
 import { AuthService } from '../../services/auth.service';
 import { PostinfoService } from '../../services/postinfo.service'; 
@@ -16,7 +16,7 @@ import { FirebaseUserModel } from '../../services/user.model';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-  theDB = firebase['database']();
+  theDB = firebase.database();
   postname = null;
   user: FirebaseUserModel = new FirebaseUserModel();  
   userid = null;
